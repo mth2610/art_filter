@@ -74,8 +74,15 @@ class _SingleFilterScreenState extends State<SingleFilterScreen> {
     super.dispose();
   }
 
-  Future<void> _processImage()async{
+  void _errorHandle(){
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        child: MessageDialog(title: "Error", message: "Failed to process image, please try again or reduce quality"),
+    );
+  }
 
+  Future<void> _processImage()async{
     if(_selectedStyles.length==0&&_image!=null){
         showDialog(
             context: context,
@@ -142,9 +149,11 @@ class _SingleFilterScreenState extends State<SingleFilterScreen> {
                     height: 16.0,
                   ),
                   Expanded(
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: _buildFilterButtons(),
+                    child: Center(
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: _buildFilterButtons(),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -158,10 +167,11 @@ class _SingleFilterScreenState extends State<SingleFilterScreen> {
   }
 
   Widget _buildPickedImage(){
+    double imageHeight = MediaQuery.of(context).size.height*0.5;
     return _proceessedImage != null
     ? Container(
       margin: EdgeInsets.all(16),
-      height: 300.0,
+      height: imageHeight,
       decoration: BoxDecoration(
           border: Border.all(width: 1, color: Colors.pink[100]),
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -172,7 +182,7 @@ class _SingleFilterScreenState extends State<SingleFilterScreen> {
     )
     : Container(
       margin: EdgeInsets.all(16),
-      height: 300.0,
+      height: imageHeight,
       child: _image!=null
         ? null
         : Center(
@@ -241,6 +251,7 @@ class _SingleFilterScreenState extends State<SingleFilterScreen> {
               _selectedStylesState.forEach((key, value){
                 _selectedStylesState[key] = false;
               });
+              _selectedStyles = [];
               setState(() {
               });
             },
@@ -287,7 +298,7 @@ class _SingleFilterScreenState extends State<SingleFilterScreen> {
         showDialog(
             context: context,
             barrierDismissible: false,
-            child: WaitingDialog(processingFunction: _processImage()),
+            child: WaitingDialog(processingFunction: _processImage(), errorHandle: _errorHandle),
         );
       },
     );
@@ -301,24 +312,26 @@ class _SingleFilterScreenState extends State<SingleFilterScreen> {
           child: Stack(
             children: <Widget>[
               Container(
-                width: 60,
+                width: MediaQuery.of(context).size.height*0.15,
+                height: MediaQuery.of(context).size.height*0.15,
                 margin: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/styles/style$i.jpg"),
-                    fit: BoxFit.fill
+                    fit: BoxFit.cover
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
               ),
               _selectedStylesState[i]==true
               ? Container(
+                width: MediaQuery.of(context).size.height*0.15,
+                height: MediaQuery.of(context).size.height*0.15,
                 alignment: Alignment.center,
                 child: Icon(
                   Icons.check_circle,
                   color: Colors.white.withOpacity(0.8),
                 ),
-                width: 60,
                 margin: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),

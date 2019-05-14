@@ -171,10 +171,11 @@ class _SequenceFilterScreenState extends State<SequenceFilterScreen> {
   }
 
   Widget _buildPickedImage(){
+    double imageHeight = MediaQuery.of(context).size.height*0.5;
     return _proceessedImage != null
     ? Container(
       margin: EdgeInsets.all(16),
-      height: 300.0,
+      height: imageHeight,
       decoration: BoxDecoration(
           border: Border.all(width: 1, color: Colors.pink[100]),
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -185,7 +186,7 @@ class _SequenceFilterScreenState extends State<SequenceFilterScreen> {
     )
     : Container(
       margin: EdgeInsets.all(16),
-      height: 300.0,
+      height: imageHeight,
       child: _image!=null
         ? null
         : Center(
@@ -254,6 +255,7 @@ class _SequenceFilterScreenState extends State<SequenceFilterScreen> {
               _selectedStylesState.forEach((key, value){
                 _selectedStylesState[key] = false;
               });
+              _selectedStyles = [];
               setState(() {
               });
             },
@@ -317,7 +319,8 @@ class _SequenceFilterScreenState extends State<SequenceFilterScreen> {
           child: Stack(
             children: <Widget>[
               Container(
-                width: 60,
+                width: MediaQuery.of(context).size.height*0.15,
+                height: MediaQuery.of(context).size.height*0.15,
                 margin: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -334,7 +337,8 @@ class _SequenceFilterScreenState extends State<SequenceFilterScreen> {
                   Icons.check_circle,
                   color: Colors.white.withOpacity(0.8),
                 ),
-                width: 60,
+                width: MediaQuery.of(context).size.height*0.15,
+                height: MediaQuery.of(context).size.height*0.15,
                 margin: const EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),

@@ -9,10 +9,10 @@ class AdmobManager {
   Future<void> init() async{
     _targetingInfo = MobileAdTargetingInfo(
       nonPersonalizedAds: true,
-      testDevices: ["E46D8B061991617A79BD4B1467A65D98"]
+      testDevices: [""]
     );
     _bannerAd = BannerAd(
-      adUnitId: "ca-app-pub-7839960170715319/9053940046",
+      adUnitId: "",
       size: AdSize.banner,
       targetingInfo: _targetingInfo,
       listener: (MobileAdEvent event) {
@@ -20,7 +20,7 @@ class AdmobManager {
       },
     );
     await FirebaseAdMob.instance.initialize(
-      appId: "ca-app-pub-7839960170715319~1558593405"
+      appId: ""
     );
     await _bannerAd.load();
   }

@@ -13,7 +13,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: afc6976c46c1cd44c3965d67bcef278bc1dcfae7
+      resolved-ref: ab15cb0c9a0d1a2228aa7814e26cd7738f082487
       url: "https://github.com/mth2610/artistic_style_transfer.git"
     source: git
     version: "0.0.1"
